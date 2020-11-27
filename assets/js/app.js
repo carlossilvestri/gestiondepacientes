@@ -70,7 +70,7 @@ $(document).ready(function() {
                                 'success'
                             );
                             setTimeout(() => {
-                                window.location.href = 'index.php';
+                                window.location.href = 'dashboard.php';
                             }, 2000);
                         } else if (resultado.respuesta == 'editado') {
                             Swal.fire(

@@ -4,6 +4,7 @@
   include_once 'funciones/sesiones.php';
   include_once 'funciones/funciones.php';
   include_once 'templates/header2.php';
+  $id_registro = $_SESSION['id'];
 ?>
 
 <body class="">
@@ -46,20 +47,20 @@
                                 <h5 class="title">Nuevo Paciente</h5>
                             </div>
                             <div class="card-body">
-                                <form>
+                                <form method="POST" action="modelo-pacientes.php" name="guardar-registro" id="guardar-registro">
                                     <div class="row">
                                         <div class="col-md-6 pr-1">
                                             <div class="form-group">
                                                 <label>Nombre</label>
-                                                <input type="text" class="form-control" placeholder="Company"
-                                                    value="Mike" />
+                                                <input type="text" name="name" class="form-control" placeholder="Nombre"
+                                                    value="" />
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Apellido</label>
-                                                <input type="text" class="form-control" placeholder="Last Name"
-                                                    value="Andrew" />
+                                                <input type="text"  name="lastname" class="form-control" placeholder="Apellido"
+                                                    value="" />
                                             </div>
                                         </div>
                                     </div>
@@ -67,13 +68,13 @@
                                         <div class="col-md-6 pr-1">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Email</label>
-                                                <input type="email" class="form-control" placeholder="Email" />
+                                                <input type="email"  name="email" class="form-control" placeholder="Email" />
                                             </div>
                                         </div>
                                         <div class="col-md-6 ">
                                             <div class="form-group">
                                                 <label>Identificación</label>
-                                                <input type="number" class="form-control" placeholder="Identificación"
+                                                <input type="number"  name="identificacion" class="form-control" placeholder="Identificación"
                                                     value="" />
                                             </div>
                                         </div>
@@ -82,7 +83,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Dirección</label>
-                                                <input type="text" class="form-control" placeholder="Dirección"
+                                                <input type="text" name="direccion" class="form-control" placeholder="Dirección"
                                                     value="" />
                                             </div>
                                         </div>
@@ -91,20 +92,20 @@
                                         <div class="col-md-4 pl-1">
                                             <div class="form-group ml-3">
                                                 <label>Edad</label>
-                                                <input type="number" class="form-control" placeholder="ZIP Code" />
+                                                <input type="number" name="edad" class="form-control" placeholder="Edad" />
                                             </div>
                                         </div>
                                         <div class="col-md-4 pl-1 m-3">
                                             <div class="form-group ml-3">
                                                 <input class="form-check-input" type="radio" name="exampleRadios"
-                                                    id="radioHombre" value="option1" checked />
+                                                    id="radioHombre" value="H" checked />
                                                 <label class="form-check-label" for="radioHombre">
                                                     Hombre
                                                 </label>
                                             </div>
                                             <div class="form-group ml-3">
                                                 <input class="form-check-input" type="radio" name="exampleRadios"
-                                                    id="radioMujer" value="option1" checked />
+                                                    id="radioMujer" value="M" checked />
                                                 <label class="form-check-label" for="radioMujer">
                                                     Mujer
                                                 </label>
@@ -114,7 +115,9 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <button href="#" class="btn btn-success btn-round">
+                                            <input type="hidden" name="id_registro" value="<?php echo $id_registro; ?>">
+                                                <input type="hidden" name="registro" value="nuevo">
+                                                <button type="submit" class="btn btn-success btn-round">
                                                     Nuevo Paciente
                                                 </button>
                                             </div>

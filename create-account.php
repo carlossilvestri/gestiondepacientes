@@ -13,7 +13,7 @@
   
             <div class="col-lg-12 login-form">
               <div class="col-lg-12 login-form">
-                <form role="form" method="POST" action="modelo-usuarios.php" action="modelo-admin.php" name="guardar-registro" id="guardar-registro">
+                <form role="form" method="POST" action="modelo-usuarios.php" name="guardar-registro" id="guardar-registro">
                   <div class="form-group">
                     <label class="form-control-label">Nombre</label>
                     <input required name="name" type="text" class="form-control" />
