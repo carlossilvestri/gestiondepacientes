@@ -53,6 +53,9 @@ if ($registro == "nuevo") {
                 'respuesta' => 'exito',
                 'id_admin' => $id_registro
             );
+            // Crear el PDF
+            
+            // Enviar el email
         } else {
             $respuesta = array(
                 'respuesta' => 'error'

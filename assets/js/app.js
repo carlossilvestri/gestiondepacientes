@@ -32,8 +32,54 @@ function mostrarNotificacion(mensaje, clase) {
 // }
 
 
-$(document).ready(function() {
-    $('#guardar-registro').on('submit', function(e) {
+$(document).ready(function () {
+    if ($('.alerta-exito').length > 0) {
+        console.log($('.alerta-exito'));
+        // Show success message
+        Swal.fire(
+            'Correcto',
+            'Ha salido todo bien',
+            'success'
+        )
+    }
+     if ($('.alerta-fallo').length > 0) {
+         // Show error message 
+         Swal.fire({
+            icon: 'error',
+            title: '¡Error!',
+            text: '¡Algo salió mal. Por favor vuelve a intentarlo!'
+        })
+     }
+     $('.btn-enviar-examen').on('click', function(e){
+        let timerInterval
+Swal.fire({
+  title: 'Por favor espera',
+  html: 'Este mensaje se desaparecerá en <b></b> milliseconds.',
+  timer: 4000,
+  timerProgressBar: true,
+  willOpen: () => {
+    Swal.showLoading()
+    timerInterval = setInterval(() => {
+      const content = Swal.getContent()
+      if (content) {
+        const b = content.querySelector('b')
+        if (b) {
+          b.textContent = Swal.getTimerLeft()
+        }
+      }
+    }, 100)
+  },
+  willClose: () => {
+    clearInterval(timerInterval)
+  }
+}).then((result) => {
+  /* Read more about handling dismissals below */
+  if (result.dismiss === Swal.DismissReason.timer) {
+    console.log('I was closed by the timer')
+  }
+})
+     });
+    $('#guardar-registro').on('submit', function (e) {
         e.preventDefault();
         var datos = $(this).serializeArray();
         var tipoDeAccion = "";
@@ -58,7 +104,7 @@ $(document).ready(function() {
                     data: datos,
                     url: $(this).attr('action'),
                     dataType: 'json',
-                    success: function(data) {
+                    success: function (data) {
                         //console.log('Succes: ' + data);
                         var resultado = data;
                         console.log(data);
@@ -127,7 +173,7 @@ $(document).ready(function() {
     }); // $('#guardar-registro')
 
     /*Se ejecuta cuando hay un archivo */
-    $('#guardar-registro-archivo').on('submit', function(e) {
+    $('#guardar-registro-archivo').on('submit', function (e) {
         e.preventDefault();
         var datos = new FormData(this);
         console.log(datos);
@@ -154,7 +200,7 @@ $(document).ready(function() {
                     processData: false,
                     async: true,
                     cache: false,
-                    success: function(data) {
+                    success: function (data) {
                         console.log('Succes: ' + data);
                         var resultado = data;
                         console.log(data);
@@ -185,68 +231,68 @@ $(document).ready(function() {
     }); //  $('#guardar-registro-archivo')
 
     //Eliminar un registro:
-    $('.borrar_registro').on('click', function(e) {
+    $('.borrar_registro').on('click', function (e) {
         e.preventDefault();
         var id = $(this).attr('data-id');
         var tipo = $(this).attr('data-tipo');
         // console.log(id);
         // console.log(tipo);
         Swal.fire({
-                title: '¿Estás seguro/a?',
-                text: "No se podrá recuperar.",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Sí, eliminar.',
-                cancelButtonText: 'Cancelar'
-            }).then((result) => {
-                //Si se oprimio "Si, eliminar" entonces:
-                if ((result.value)) {
-                    $.ajax({
-                        type: 'post',
-                        data: {
-                            'id': id,
-                            'registro': 'eliminar'
-                        },
-                        url: 'modelo-' + tipo + '.php',
-                        success: function(data) {
-                            //console.log("Aqui data dentro de sucess " + data);
-                            var resultado = JSON.parse(data);
-                            // console.log(resultado);
-                            if (resultado.respuesta == 'eliminado') {
-                                Swal.fire(
-                                    '¡Eliminado!',
-                                    'Se ha eliminado correctamente.',
-                                    'success'
-                                )
-                                jQuery('[data-id="' + resultado.id_eliminado + '"]').parents('.card-user').remove();
-                            } else if (resultado.respuesta == 'eliminado-tipo-examen') {
-                                Swal.fire(
-                                    '¡Eliminado!',
-                                    'Se ha eliminado correctamente.',
-                                    'success'
-                                )
-                                jQuery('[data-id="' + resultado.id_eliminado + '"]').parents('.card-user').remove();
-                            } else if (resultado.respuesta == 'eliminado-examen') {
-                                Swal.fire(
-                                        '¡Eliminado!',
-                                        'Se ha eliminado correctamente.',
-                                        'success'
-                                    )
-                                    //Eliminar del DOM la categoria.
-                                jQuery('[data-id="' + resultado.id_eliminado + '"]').parents('.row').remove();
-                            } else {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Oops...',
-                                    text: '¡Algo salió mal!'
-                                })
-                            }
+            title: '¿Estás seguro/a?',
+            text: "No se podrá recuperar.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, eliminar.',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            //Si se oprimio "Si, eliminar" entonces:
+            if ((result.value)) {
+                $.ajax({
+                    type: 'post',
+                    data: {
+                        'id': id,
+                        'registro': 'eliminar'
+                    },
+                    url: 'modelo-' + tipo + '.php',
+                    success: function (data) {
+                        //console.log("Aqui data dentro de sucess " + data);
+                        var resultado = JSON.parse(data);
+                        // console.log(resultado);
+                        if (resultado.respuesta == 'eliminado') {
+                            Swal.fire(
+                                '¡Eliminado!',
+                                'Se ha eliminado correctamente.',
+                                'success'
+                            )
+                            jQuery('[data-id="' + resultado.id_eliminado + '"]').parents('.card-user').remove();
+                        } else if (resultado.respuesta == 'eliminado-tipo-examen') {
+                            Swal.fire(
+                                '¡Eliminado!',
+                                'Se ha eliminado correctamente.',
+                                'success'
+                            )
+                            jQuery('[data-id="' + resultado.id_eliminado + '"]').parents('.card-user').remove();
+                        } else if (resultado.respuesta == 'eliminado-examen') {
+                            Swal.fire(
+                                '¡Eliminado!',
+                                'Se ha eliminado correctamente.',
+                                'success'
+                            )
+                            //Eliminar del DOM la categoria.
+                            jQuery('[data-id="' + resultado.id_eliminado + '"]').parents('.row').remove();
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: '¡Algo salió mal!'
+                            })
                         }
-                    });
-                }
-            }) //.then((result) 
+                    }
+                });
+            }
+        }) //.then((result) 
 
 
     }); // $('.borrar_registro')

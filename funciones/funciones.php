@@ -135,11 +135,26 @@ function obtenerExamen($idExamen){
     include 'bd_conexion.php';
     try{
         return $conn->query("SELECT
-        * 
+        examenes.idExamen,
+        examenes.idPacienteF,
+        examenes.idTipoExamenF,
+        examenes.informacionExamen,
+        pacientes.nombrePaciente,
+        pacientes.apellidoPaciente,
+        usuarios.nombre,
+        usuarios.apellido,
+        pacientes.edad,
+        pacientes.sexo,
+        pacientes.identificacion,
+        tipoexamen.nombreTipoExamen,
+        pacientes.email 
     FROM
-        examenes 
+        examenes
+        INNER JOIN pacientes ON examenes.idPacienteF = pacientes.idPaciente
+        INNER JOIN usuarios ON pacientes.idUsuarioF = usuarios.idUsuario
+        INNER JOIN tipoexamen ON examenes.idTipoExamenF = tipoexamen.idTipoExamen 
     WHERE
-        examenes.idExamen = $idExamen");
+        examenes.idExamen =  $idExamen");
     }catch(Exception $e){
         echo 'Error!! '. $e->getMessage() . '<br>';
         return false;

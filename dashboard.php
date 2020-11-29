@@ -1,4 +1,5 @@
 <?php
+
 //Funcion que te lleva al admin-o-cliente.php si no estas logueado. 
 //Descomentar cuando funcione la parte del login.
   include_once 'funciones/sesiones.php';

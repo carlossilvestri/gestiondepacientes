@@ -7,4 +7,5 @@
     <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="assets/js/now-ui-dashboard.min.js?v=1.5.0" type="text/javascript"></script>
     <script src="assets/js/app.js" type="text/javascript"></script>
-    <script src="assets/js/sweetalert2.all.min.js" type="text/javascript"></script>
+    <!-- <script src="assets/js/sweetalert2.all.min.js" type="text/javascript"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>

@@ -1,9 +1,23 @@
 <?php
+if (isset($_GET['c'])) {
+    $c = $_GET['c'];
+} else {
+    $c = null;
+}
+// echo var_dump($c);
 //Funcion que te lleva al admin-o-cliente.php si no estas logueado. 
 //Descomentar cuando funcione la parte del login.
   include_once 'funciones/sesiones.php';
   include_once 'funciones/funciones.php';
   include_once 'templates/header2.php';
+  if($c){
+    if($c == 'true'){
+        echo '<span class="alerta-exito"></span>';
+    }
+    if($c == 'false'){
+        echo '<span class="alerta-fallo"></span>';
+    }
+}
 ?>
 
 <body class="">
@@ -21,7 +35,7 @@
                                 <span class="navbar-toggler-bar bar3"></span>
                             </button>
                         </div>
-                        <a class="navbar-brand" href="dashboard.php">Pacientes</a>
+                        <a class="navbar-brand" href="dashboard.php">Exámenes</a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
                         aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
@@ -68,6 +82,9 @@
                                 <a href="editar-examen.php?id=<?php echo $examen['idExamen']; ?>" class="btn btn-info btn-round">
                                     Editar
                                 </a>
+                                <a href="reporte.php?id=<?php echo $examen['idExamen']; ?>" class="btn btn-warning btn-round btn-enviar-examen">
+                                    Enviar Examen
+                                </a>
                                 <button href="#" data-id="<?php echo $examen['idExamen']; ?>" data-tipo="examen" class="btn btn-danger btn-round borrar_registro">
                                     Eliminar
                                 </button>
@@ -89,7 +106,7 @@
                                     </p>
                                 </div>
                                 <p class="description text-center">
-                                    Registra un Tipo de exame <br />
+                                    Registra un Tipo de examen <br />
                                 </p>
                             </div>
                         </div>
