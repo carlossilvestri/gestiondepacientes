@@ -8,7 +8,7 @@
 
 <body class="">
     <div class="wrapper">
-      <?php include_once 'templates/barra.php'; ?>
+        <?php include_once 'templates/barra.php'; ?>
         <div class="main-panel" id="main-panel">
             <!-- Navbar -->
             <nav class="navbar navbar-expand-lg navbar-transparent bg-primary navbar-absolute">
@@ -21,7 +21,7 @@
                                 <span class="navbar-toggler-bar bar3"></span>
                             </button>
                         </div>
-                        <a class="navbar-brand" href="dashboard.php">Dashboard</a>
+                        <a class="navbar-brand" href="dashboard.php">Nuevo Examen</a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
                         aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,14 +46,27 @@
                                 <h5 class="title">Nuevo Examen</h5>
                             </div>
                             <div class="card-body">
-                                <form>
+                                <form method="POST" action="modelo-examen.php" name="guardar-registro" id="guardar-registro">
                                     <div class="row">
                                         <div class="col-md-8 pr-1">
                                             <div class="form-group">
                                                 <label for="inputState">Paciente</label>
-                                                <select id="inputState" class="form-control">
-                                                    <option selected>Elige...</option>
-                                                    <option>...</option>
+                                                <select required name="idPaciente" id="inputState" class="form-control">
+                                                    <option value="0" selected>Elige...</option>
+                                                    <?php
+                                                        $idUsuario = $_SESSION['id']; 
+                                                        $pacientes = obtenerPacientes($idUsuario);
+                                                        if ($pacientes->num_rows) {
+                                                            foreach ($pacientes as $paciente) :
+                                                        ?>
+                                                    <option value="<?php echo $paciente['idPaciente']; ?>">
+                                                        <?php echo $paciente['nombrePaciente'] . " " . $paciente['apellidoPaciente']; ?>
+                                                    </option>
+                                                    <?php
+                                                            endforeach;
+                                                        } else{ ?>
+
+                                                    <?php } ?>
                                                 </select>
                                             </div>
                                         </div>
@@ -61,10 +74,22 @@
                                     <div class="row">
                                         <div class="col-md-8 pr-1">
                                             <div class="form-group">
+
                                                 <label for="inputState">Tipo de Examen</label>
-                                                <select id="inputState" class="form-control">
-                                                    <option selected>Elige...</option>
-                                                    <option>...</option>
+                                                <select required name="idTipoDeExamen" id="inputState" class="form-control">
+                                                    <option value="0" selected>Elige...</option>
+                                            <?php
+                                                $idUsuario = $_SESSION['id']; 
+                                                $tipoDeExamenes = obtenerTipoDeExamenes();
+                                                if ($tipoDeExamenes->num_rows) {
+                                                    foreach ($tipoDeExamenes as $tipoDeExamen) :
+                                                ?>
+                                                    <option value="<?php echo $tipoDeExamen['idTipoExamen']; ?>"><?php echo $tipoDeExamen['nombreTipoExamen']; ?></option>
+                                                    <?php
+                                                            endforeach;
+                                                        } else{ ?>
+
+                                                    <?php } ?>
                                                 </select>
                                             </div>
                                         </div>
@@ -73,7 +98,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Información del Examen</label>
-                                                <input type="text" class="form-control"
+                                                <input name="infoExamen" required type="text" class="form-control"
                                                     placeholder="Información del Examen" value="" />
                                             </div>
                                         </div>
@@ -81,7 +106,8 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <button href="#" class="btn btn-success btn-round">
+                                            <input type="hidden" name="registro" value="nuevo">
+                                                <button type="submit" class="btn btn-success btn-round">
                                                     Crear
                                                 </button>
                                             </div>

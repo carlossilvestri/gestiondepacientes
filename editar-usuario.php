@@ -9,7 +9,7 @@ else :
   include_once 'funciones/sesiones.php';
   include_once 'funciones/funciones.php';
   include_once 'templates/header2.php';
-  // $id_registro = $_SESSION['id'];
+  $idUsuario = $_SESSION['id']; 
 ?>
 
 <body class="">
@@ -27,7 +27,7 @@ else :
                                 <span class="navbar-toggler-bar bar3"></span>
                             </button>
                         </div>
-                        <a class="navbar-brand" href="dashboard.php">Editar Paciente</a>
+                        <a class="navbar-brand" href="dashboard.php">Editar Usuario</a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
                         aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,27 +49,27 @@ else :
                     <div class="col-md-8">
                         <div class="card">
                             <div class="card-header">
-                                <h5 class="title">Editar Paciente</h5>
+                                <h5 class="title">Editar Usuario</h5>
                             </div>
                             <div class="card-body">
-                                <?php
-                                  $resultado = obtenerPaciente($id);
-                                  $paciente = $resultado->fetch_assoc();
-                                ?>
-                                <form method="POST" action="modelo-pacientes.php" name="guardar-registro" id="guardar-registro">
+                                <?php 
+                                    $resultado = obtenerUsuario($idUsuario);
+                                    $usuarioEspecifico = $resultado->fetch_assoc();
+                                    if ($resultado->num_rows) { ?>
+                                <form method="POST" action="modelo-usuarios.php" name="guardar-registro" id="guardar-registro">
                                     <div class="row">
                                         <div class="col-md-6 pr-1">
                                             <div class="form-group">
                                                 <label>Nombre</label>
                                                 <input required type="text" name="name" class="form-control" placeholder="Nombre"
-                                                    value="<?php echo $paciente['nombrePaciente']; ?>" />
+                                                    value="<?php echo $usuarioEspecifico['nombre']; ?>" />
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Apellido</label>
                                                 <input required type="text"  name="lastname" class="form-control" placeholder="Apellido"
-                                                    value="<?php echo $paciente['apellidoPaciente']; ?>" />
+                                                    value="<?php echo $usuarioEspecifico['apellido']; ?>" />
                                             </div>
                                         </div>
                                     </div>
@@ -77,62 +77,30 @@ else :
                                         <div class="col-md-6 pr-1">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Email</label>
-                                                <input required type="email"  name="email" class="form-control" placeholder="Email" value="<?php echo $paciente['email']; ?>" />
+                                                <input required id="exampleInputEmail1" type="email"  name="email" class="form-control" placeholder="Email" value="<?php echo $usuarioEspecifico['email']; ?>" />
                                             </div>
                                         </div>
                                         <div class="col-md-6 ">
                                             <div class="form-group">
-                                                <label>Identificación</label>
-                                                <input required type="number"  name="identificacion" class="form-control" placeholder="Identificación"
-                                                    value="<?php echo $paciente['identificacion']; ?>" />
+                                                <label for="inputPassword">Contraseña</label>
+                                                <input  type="password" id="inputPassword"  name="password" class="form-control" placeholder="Deje la Contraseña vacia si no la quiere cambiar."
+                                                    value="" />
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label>Dirección</label>
-                                                <input required type="text" name="direccion" class="form-control" placeholder="Dirección"
-                                                    value="<?php echo $paciente['direccion']; ?>" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-4 pl-1">
-                                            <div class="form-group ml-3">
-                                                <label>Edad</label>
-                                                <input required type="number" name="edad" class="form-control" placeholder="Edad" value="<?php echo $paciente['edad']; ?>" />
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4 pl-1 m-3">
-                                            <div class="form-group ml-3">
-                                                <input required class="form-check-input" type="radio" name="exampleRadios"
-                                                    id="radioHombre" value="H" <?php if ($paciente['sexo'] === 'H' ){ echo 'checked'; } ?> />
-                                                <label class="form-check-label" for="radioHombre">
-                                                    Hombre
-                                                </label>
-                                            </div>
-                                            <div class="form-group ml-3">
-                                                <input required class="form-check-input" type="radio" name="exampleRadios"
-                                                    id="radioMujer" value="M" <?php if ($paciente['sexo'] === 'M' ){ echo 'checked'; } ?> />
-                                                <label class="form-check-label" for="radioMujer">
-                                                    Mujer
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                            <input type="hidden" name="id_registro" value="<?php echo $paciente['idPaciente']; ?>">
+                                            <input type="hidden" name="id_registro" value="<?php echo $idUsuario; ?>">
                                                 <input type="hidden" name="registro" value="actualizar">
                                                 <button type="submit" class="btn btn-success btn-round">
-                                                    Editar Paciente
+                                                    Editar Usuario
                                                 </button>
                                             </div>
                                         </div>
                                     </div>
                                 </form>
+                                <?php } ?>
                             </div>
                         </div>
                     </div>

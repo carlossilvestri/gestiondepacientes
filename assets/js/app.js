@@ -43,7 +43,6 @@ $(document).ready(function() {
         console.log(datos);
         Swal.fire({
             title: '¿Estás seguro/a?',
-            text: "Esta accion es permanente.",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -77,7 +76,10 @@ $(document).ready(function() {
                                 '¡Correcto!',
                                 '¡Se editó correctamente!',
                                 'success'
-                            )
+                            );
+                            setTimeout(() => {
+                                window.location.href = 'dashboard.php';
+                            }, 2000);
                         } else if (resultado.respuesta == 'evento-creado-exitosamente') {
                             Swal.fire(
                                 '¡Correcto!',
@@ -187,6 +189,8 @@ $(document).ready(function() {
         e.preventDefault();
         var id = $(this).attr('data-id');
         var tipo = $(this).attr('data-tipo');
+        // console.log(id);
+        // console.log(tipo);
         Swal.fire({
                 title: '¿Estás seguro/a?',
                 text: "No se podrá recuperar.",
@@ -209,22 +213,22 @@ $(document).ready(function() {
                         success: function(data) {
                             //console.log("Aqui data dentro de sucess " + data);
                             var resultado = JSON.parse(data);
-
+                            // console.log(resultado);
                             if (resultado.respuesta == 'eliminado') {
                                 Swal.fire(
                                     '¡Eliminado!',
                                     'Se ha eliminado correctamente.',
                                     'success'
                                 )
-                                jQuery('[data-id="' + resultado.id_eliminado + '"]').parents('.books').remove();
-                            } else if (resultado.respuesta == 'eliminado-admin') {
+                                jQuery('[data-id="' + resultado.id_eliminado + '"]').parents('.card-user').remove();
+                            } else if (resultado.respuesta == 'eliminado-tipo-examen') {
                                 Swal.fire(
                                     '¡Eliminado!',
                                     'Se ha eliminado correctamente.',
                                     'success'
                                 )
-                                location.href = '../admin-o-cliente.php?cerrar_sesion=true';
-                            } else if (resultado.respuesta == 'eliminado-categoria') {
+                                jQuery('[data-id="' + resultado.id_eliminado + '"]').parents('.card-user').remove();
+                            } else if (resultado.respuesta == 'eliminado-examen') {
                                 Swal.fire(
                                         '¡Eliminado!',
                                         'Se ha eliminado correctamente.',

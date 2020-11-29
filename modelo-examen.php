@@ -6,61 +6,20 @@ if (isset($_POST['usuario'])) {
 } else {
     $usuario = null;
 }
-if (isset($_POST['name'])) {
-    $name = $_POST['name'];
+if (isset($_POST['idPaciente'])) {
+    $idPaciente = $_POST['idPaciente'];
 } else {
-    $name = null;
+    $idPaciente = null;
 }
-if (isset($_POST['lastname'])) {
-    $lastname = $_POST['lastname'];
+if (isset($_POST['idTipoDeExamen'])) {
+    $idTipoDeExamen = $_POST['idTipoDeExamen'];
 } else {
-    $lastname = null;
+    $idTipoDeExamen = null;
 }
-if (isset($_POST['email'])) {
-    $email = $_POST['email'];
+if (isset($_POST['infoExamen'])) {
+    $infoExamen = $_POST['infoExamen'];
 } else {
-    $email = null;
-}
-if (isset($_POST['direccion'])) {
-    $direccion = $_POST['direccion'];
-} else {
-    $direccion = null;
-}
-if (isset($_POST['identificacion'])) {
-    $identificacion = $_POST['identificacion'];
-} else {
-    $identificacion = null;
-}
-if (isset($_POST['edad'])) {
-    $edad = $_POST['edad'];
-} else {
-    $edad = null;
-}
-if (isset($_POST['exampleRadios'])) {
-    $sexo = $_POST['exampleRadios'];
-} else {
-    $sexo = null;
-}
-if (isset($_POST['password'])) {
-    $passwordUsuario = $_POST['password'];
-} else {
-    $passwordUsuario = null;
-}
-if (isset($_POST['repeatpassword'])) {
-    $repeatpassword = $_POST['repeatpassword'];
-} else {
-    $repeatpassword = null;
-}
-if (isset($_POST['registrarusuario'])) {
-    $registrarusuario = $_POST['registrarusuario'];
-} else {
-    $registrarusuario = null;
-}
-
-if (isset($_POST['agregar-admin'])) {
-    $agregarAdmin = $_POST['agregar-admin'];
-} else {
-    $agregarAdmin = null;
+    $infoExamen = null;
 }
 if (isset($_POST['id_registro'])) {
     $idUsuario = $_POST['id_registro'];
@@ -72,14 +31,19 @@ if (isset($_POST['registro'])) {
 } else {
     $registro = null;
 }
+if (isset($_POST['idExamen'])) {
+    $idExamen = $_POST['idExamen'];
+} else {
+    $idExamen = null;
+}
 
 // die(json_encode( $_POST ));
 if ($registro == "nuevo") {
 
     //Insertar los datos a la BDD:
     try {
-        $stmt = $conn->prepare("INSERT INTO `pacientes` (`idPaciente`, `idUsuarioF`, `email`, `nombrePaciente`, `apellidoPaciente`, `identificacion`, `direccion`, `edad`, `sexo` ) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?);");
-        $stmt->bind_param("isssssis", $idUsuario, $email, $name, $lastname, $identificacion, $direccion, $edad, $sexo );
+        $stmt = $conn->prepare("INSERT INTO `examenes` (`idExamen`, `idPacienteF`, `idTipoExamenF`, `informacionExamen`) VALUES (NULL, ?, ?, ?);");
+        $stmt->bind_param("iis", $idPaciente, $idTipoDeExamen, $infoExamen);
         $stmt->execute();
         $id_registro = $stmt->insert_id;
         //Si hubo un cambio en las filas de la BD, quiere decir que se registro el Admin correctamente.
@@ -87,15 +51,8 @@ if ($registro == "nuevo") {
             //Creo un array llamado respuesta, la cual confirma que el registr fue todo un exito.
             $respuesta = array(
                 'respuesta' => 'exito',
-                'nombre' => $name,
                 'id_admin' => $id_registro
             );
-            //Se activa la sesion
-            // session_start();
-            // $_SESSION['usuario'] = $email;
-            // $_SESSION['nombre'] = $nombreAdmin;
-            // $_SESSION['id'] = $id_registro;
-            // header('Location:index.php');
         } else {
             $respuesta = array(
                 'respuesta' => 'error'
@@ -113,8 +70,8 @@ if ($registro == "nuevo") {
 } else  if ($registro == "actualizar") {
 
     try {
-        $stmt = $conn->prepare("UPDATE `pacientes` SET `email` = ?, `nombrePaciente` = ?, `apellidoPaciente` = ?, `identificacion` = ?, `direccion` = ?, `edad` = ?, `sexo` = ? WHERE `pacientes`.`idPaciente` = ?; ");
-        $stmt->bind_param("sssssisi", $email, $name, $lastname, $identificacion, $direccion, $edad, $sexo, $idUsuario);
+        $stmt = $conn->prepare("UPDATE `examenes` SET `idPacienteF` = ?, `idTipoExamenF` = ?, `informacionExamen` = ? WHERE `idExamen` = ? ");
+        $stmt->bind_param("iisi",  $idPaciente, $idTipoDeExamen, $infoExamen, $idExamen);
 
         $stmt->execute();
         if ($stmt->affected_rows) {
@@ -139,12 +96,12 @@ if ($registro == "nuevo") {
 
     $idBorrar = $_POST['id'];
     try{
-        $stmt = $conn->prepare(" DELETE FROM `pacientes`  WHERE `pacientes`.`idPaciente` = ?;");
+        $stmt = $conn->prepare(" DELETE FROM `examenes` WHERE `idExamen` = ?");
         $stmt->bind_param("i", $idBorrar);
         $stmt->execute();
         if ($stmt->affected_rows) {
             $respuesta = array(
-                'respuesta' => 'eliminado',
+                'respuesta' => 'eliminado-tipo-examen',
                 'id_eliminado' => $idBorrar
             );
         }else{

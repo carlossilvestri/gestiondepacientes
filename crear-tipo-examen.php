@@ -58,16 +58,18 @@
                   <h5 class="title">Nuevo tipo de Examen</h5>
                 </div>
                 <div class="card-body">
-                  <form>
+                  <form method="POST" action="modelo-tipo-examen.php" name="guardar-registro" id="guardar-registro">
                     <div class="row">
                       <div class="col-md-10 pr-1">
                         <div class="form-group">
                           <label>Nombre</label>
                           <input
                             type="text"
+                            name="name"
+                            required
                             class="form-control"
-                            placeholder="Company"
-                            value="Mike"
+                            placeholder="Nombre del Examen"
+                            value=""
                           />
                         </div>
                       </div>
@@ -75,8 +77,9 @@
                     <div class="row">
                       <div class="col-md-12">
                         <div class="form-group">
+                        <input type="hidden" name="registro" value="nuevo">
                           <button
-                          href="#"
+                          type="submit"
                           class="btn btn-success btn-round"
                         >
                           Crear

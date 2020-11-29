@@ -50,7 +50,7 @@
             </div>
             <div class="content">
                 <div class="row">
-          <?php
+                    <?php
           $idUsuario = $_SESSION['id']; 
           $pacientes = obtenerPacientes($idUsuario);
           if ($pacientes->num_rows) {
@@ -59,20 +59,31 @@
                     <div class="col-md-4">
                         <div class="card card-user">
                             <div class="card-body">
-                                <p class="description text-center">
-                                <?php echo $paciente['nombre']; ?> <br />
-                                    Your chick she so thirsty <br />
-                                    I'm in that two seat Lambo"
+                                <div class="typography-line text-center mt-3">
+                                    <h6><span>Paciente:</span>
+                                    </h6>
+                                </div>
+                                <div class="typography-line text-center">
+                                    <?php echo $paciente['nombrePaciente'] . " " . $paciente['apellidoPaciente']; ?>
+                                    </p>
+                                </div>
+                                <p class="text-center">
+                                    <br />
+                                    <?php echo "ID: " . $paciente['identificacion']; ?>
+                                    <br />
+                                    <?php echo $paciente['email']; ?>
+                                    <br />
+                                    <?php echo $paciente['edad'] . " años."; ?>
                                 </p>
                             </div>
                             <hr />
                             <div class="button-container">
-                                <button href="#" class="btn btn-info btn-round">
+                                <a href="<?php echo 'editar-paciente.php?id=' . $paciente['idPaciente']; ?>" class="btn btn-info btn-round">
                                     Editar
-                                </button>
-                                <button href="#" class="btn btn-danger btn-round">
+                                </a>
+                                <a href="#" class="btn btn-danger btn-round borrar_registro"  data-id="<?php echo $paciente['idPaciente']; ?>" data-tipo="pacientes">
                                     Eliminar
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -82,22 +93,13 @@
                     <div class="col-md-4">
                         <div class="card card-user">
                             <div class="card-body">
-                                <p class="description text-center">
-                                No tienes pacientes registrados. <br />
+                                <p class="text-center">
+                                    No tienes pacientes registrados. <br />
                                 </p>
-                            </div>
-                            <hr />
-                            <div class="button-container">
-                                <button href="#" class="btn btn-info btn-round">
-                                    Editar
-                                </button>
-                                <button href="#" class="btn btn-danger btn-round">
-                                    Eliminar
-                                </button>
                             </div>
                         </div>
                     </div>
-                       <?php } ?>
+                    <?php } ?>
                 </div>
             </div>
             <footer class="footer">

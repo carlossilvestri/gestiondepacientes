@@ -22,7 +22,7 @@
                                 <span class="navbar-toggler-bar bar3"></span>
                             </button>
                         </div>
-                        <a class="navbar-brand" href="dashboard.php">Dashboard</a>
+                        <a class="navbar-brand" href="dashboard.php">Nuevo Paciente</a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
                         aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,14 +52,14 @@
                                         <div class="col-md-6 pr-1">
                                             <div class="form-group">
                                                 <label>Nombre</label>
-                                                <input type="text" name="name" class="form-control" placeholder="Nombre"
+                                                <input required type="text" name="name" class="form-control" placeholder="Nombre"
                                                     value="" />
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Apellido</label>
-                                                <input type="text"  name="lastname" class="form-control" placeholder="Apellido"
+                                                <input required type="text"  name="lastname" class="form-control" placeholder="Apellido"
                                                     value="" />
                                             </div>
                                         </div>
@@ -68,13 +68,13 @@
                                         <div class="col-md-6 pr-1">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Email</label>
-                                                <input type="email"  name="email" class="form-control" placeholder="Email" />
+                                                <input required type="email"  name="email" class="form-control" placeholder="Email" />
                                             </div>
                                         </div>
                                         <div class="col-md-6 ">
                                             <div class="form-group">
                                                 <label>Identificación</label>
-                                                <input type="number"  name="identificacion" class="form-control" placeholder="Identificación"
+                                                <input required type="number"  name="identificacion" class="form-control" placeholder="Identificación"
                                                     value="" />
                                             </div>
                                         </div>
@@ -83,7 +83,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Dirección</label>
-                                                <input type="text" name="direccion" class="form-control" placeholder="Dirección"
+                                                <input required type="text" name="direccion" class="form-control" placeholder="Dirección"
                                                     value="" />
                                             </div>
                                         </div>
@@ -92,20 +92,20 @@
                                         <div class="col-md-4 pl-1">
                                             <div class="form-group ml-3">
                                                 <label>Edad</label>
-                                                <input type="number" name="edad" class="form-control" placeholder="Edad" />
+                                                <input required type="number" name="edad" class="form-control" placeholder="Edad" />
                                             </div>
                                         </div>
                                         <div class="col-md-4 pl-1 m-3">
                                             <div class="form-group ml-3">
-                                                <input class="form-check-input" type="radio" name="exampleRadios"
-                                                    id="radioHombre" value="H" checked />
+                                                <input required class="form-check-input" type="radio" name="exampleRadios"
+                                                    id="radioHombre" value="H" />
                                                 <label class="form-check-label" for="radioHombre">
                                                     Hombre
                                                 </label>
                                             </div>
                                             <div class="form-group ml-3">
-                                                <input class="form-check-input" type="radio" name="exampleRadios"
-                                                    id="radioMujer" value="M" checked />
+                                                <input required class="form-check-input" type="radio" name="exampleRadios"
+                                                    id="radioMujer" value="M" />
                                                 <label class="form-check-label" for="radioMujer">
                                                     Mujer
                                                 </label>

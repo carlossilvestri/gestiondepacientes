@@ -8,7 +8,7 @@
             </p>
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="editar-usuario.php">Editar Usuario</a>
+            <a class="dropdown-item" href="editar-usuario.php?id=<?php echo $_SESSION['id'] ; ?>">Editar Usuario</a>
             <a class="dropdown-item" href="index.php?cerrar_sesion=true">Cerrar Sesión</a>
         </div>
     </li>

@@ -104,7 +104,7 @@ if ($registro == "nuevo") {
         if (empty($_POST['password'])) {
             //Entonces que no actualice el password
             $stmt = $conn->prepare("UPDATE `usuarios` SET `email` = ?, `nombre` = ?, `apellido` = ? WHERE `idUsuario` = ? ");
-            $stmt->bind_param("ssi",  $email, $name, $lastname, $id_registro);
+            $stmt->bind_param("sssi",  $email, $name, $lastname, $id_registro);
         } else {
             //Si el password tiene algo entonces actualizarla:
             $opciones = array(
@@ -112,7 +112,7 @@ if ($registro == "nuevo") {
             );
             $hash_password = password_hash($passwordUsuario, PASSWORD_BCRYPT, $opciones);
             $stmt = $conn->prepare("UPDATE `usuarios` SET `email` = ?, `nombre` = ?, `apellido` = ?, `password` = ? WHERE `idUsuario` = ? ");
-            $stmt->bind_param("sssi",  $email, $name, $lastname, $hash_password, $id_registro);
+            $stmt->bind_param("ssssi",  $email, $name, $lastname, $hash_password, $id_registro);
         }
 
         $stmt->execute();
